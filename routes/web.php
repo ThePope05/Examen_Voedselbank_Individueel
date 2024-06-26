@@ -8,3 +8,6 @@ Route::get('/', function () {
 });
 
 Route::get('/gezinsallergieen', [AllergieController::class, 'index'])->name('allergies.index');
+Route::get('/gezinsallergieen/{gezin}/details', [AllergieController::class, 'show'])->name('allergies.show');
+Route::get('/gezinsallergieen/{gezin}/persoon/{persoon}/edit', [AllergieController::class, 'edit'])->name('allergies.edit');
+Route::post('/gezinsallergieen/{gezin}/persoon/{persoon}', [AllergieController::class, 'update'])->name('allergies.update');
