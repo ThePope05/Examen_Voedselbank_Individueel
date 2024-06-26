@@ -10,11 +10,11 @@ class CreatePersonenTable extends Migration
     {
         Schema::create('personen', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gezin_id')->constrained('gezinnen');
+            $table->foreignId('gezin_id')->nullable()->constrained('gezinnen');
             $table->string('voornaam', 50);
             $table->string('tussenvoegsel', 10)->nullable();
             $table->string('achternaam', 50);
-            $table->date('geboorte_datum');
+            $table->date('geboortedatum');
             $table->string('type_persoon', 30);
             $table->boolean('is_vertegenwoordiger');
             $table->boolean('is_actief')->default(true);
