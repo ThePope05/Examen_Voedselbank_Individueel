@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             GezinSeeder::class,
             PersoonSeeder::class,
-            // AllergieSeeder::class,
-            // AllergiePerPersoonSeeder::class, 
+            AllergieSeeder::class,
+            AllergiePerPersoonSeeder::class,
         ]);
     }
 }
