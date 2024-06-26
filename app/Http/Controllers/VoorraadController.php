@@ -60,4 +60,17 @@ class VoorraadController extends Controller
         $product = ProductPerMagazijn::findOrFail($id);
         return view('voorraad.show', compact('product'));
     }
+
+    public function edit($id)
+    {
+        /**
+         * Haal een product op uit de database
+         * waarvan de id gelijk is aan de product_id
+         * en geef deze door aan de view
+         * @var ProductPerMagazijn $product
+         * @var int $id
+         */
+        $product = ProductPerMagazijn::findOrFail($id);
+        return view('voorraad.edit', compact('product'));
+    }
 }
