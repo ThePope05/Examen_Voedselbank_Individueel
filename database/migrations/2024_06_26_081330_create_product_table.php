@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('categorie_id')->constrained('categorie');
             $table->string('naam', 255);
             $table->string('soort_allergie', 20)->nullable();
-            $table->integer('barcode');
+            $table->bigInteger('barcode');
             $table->date('houdbaarheidsdatum');
             $table->string('omschrijving', 255);
             $table->string('status', 255);
