@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductPerMagazijn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class VoorraadController extends Controller
 {
@@ -73,4 +74,63 @@ class VoorraadController extends Controller
         $product = ProductPerMagazijn::findOrFail($id);
         return view('voorraad.edit', compact('product'));
     }
+
+    public function update(Request $request, $id)
+{
+    // Valideer de ingevoerde gegevens
+    $request->validate([
+        'naam' => 'required|string|max:255',
+        'houdbaarheidsdatum' => 'required|date',
+        'barcode' => 'required|integer',
+        'locatie' => 'required|string|max:255',
+        'ontvangstdatum' => 'required|date',
+        'aantal_uitgeleverd' => 'nullable|integer',
+        'uitleveringsdatum' => 'nullable|date',
+        'aantal' => 'required|integer',
+    ]);
+
+    try {
+        // Zoek het product op basis van ID
+        $product = ProductPerMagazijn::findOrFail($id);
+
+        // Trek het aantal uitgeleverde producten af van het totale aantal
+        if ($request->filled('aantal_uitgeleverd')) {
+            $aantalUitgeleverd = $request->input('aantal_uitgeleverd');
+            $nieuwAantal = $product->magazijn->aantal - $aantalUitgeleverd;
+
+            // Controleer of het nieuwe aantal niet negatief wordt
+            if ($nieuwAantal < 0) {
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['error' => 'Het aantal uitgeleverde producten mag niet hoger zijn dan het aantal producten in voorraad.']);
+            }
+
+            $product->magazijn->aantal = $nieuwAantal;
+        }
+
+        // Werk de productgegevens bij met de overige gegevens
+        $product->product->naam = $request->input('naam');
+        $product->product->houdbaarheidsdatum = $request->input('houdbaarheidsdatum');
+        $product->product->barcode = $request->input('barcode');
+        $product->locatie = $request->input('locatie');
+        $product->magazijn->ontvangstdatum = $request->input('ontvangstdatum');
+        $product->magazijn->save();
+        $product->product->save();
+
+        // Flash een succesbericht naar de sessie
+        session()->flash('success', 'De productgegevens zijn gewijzigd');
+
+        // Redirect terug naar de bewerkingspagina van het product
+        return redirect()->route('voorraad.edit', $product->id);
+    } catch (\Exception $e) {
+        // Log de fout om te helpen bij debuggen
+        Log::error('Error updating product: ' . $e->getMessage());
+
+        // Behandel eventuele uitzonderingen of fouten die kunnen optreden
+        return redirect()->back()
+            ->withInput()
+            ->withErrors(['error' => 'De productgegevens van het geselecteerde product kunnen niet gewijzigd worden.']);
+    }
+}
+
 }
