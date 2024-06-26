@@ -4,6 +4,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
 
+
 <div class="container">
     <h1 class="text-success">Wijzig Product Details {{ $product->product->naam }}</h1>
 
@@ -23,11 +24,14 @@
         </div>
     @endif
 
-    <form>
+    <form method="POST" action="{{ route('voorraad.update', $product->id) }}">
+        @csrf
+        @method('PATCH')
+
         <div class="row mb-3">
             <label for="productnaam" class="col-sm-2 col-form-label">Productnaam</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="productnaam" id="productnaam"
+                <input type="text" class="form-control" name="naam" id="productnaam"
                     value="{{ $product->product->naam }}">
             </div>
         </div>
@@ -48,16 +52,27 @@
         <div class="row mb-3">
             <label for="magazijnlocatie" class="col-sm-2 col-form-label">Magazijn Locatie</label>
             <div class="col-sm-10">
-                <select class="form-select" id="magazijnlocatie" name="magazijnlocatie">
-                    <option value="Berlicum">Berlicum</option>
-                    <option value="Den Bosch">Den Bosch</option>
-                    <option value="Gemonde">Gemonde</option>
-                    <option value="Heeswijk Dinther">Heeswijk Dinther</option>
-                    <option value="Middelrode">Middelrode</option>
-                    <option value="Rosmalen">Rosmalen</option>
-                    <option value="Schijndel">Schijndel</option>
-                    <option value="Sint-MichelsGestel">Sint-MichelsGestel</option>
-                    <option value="Vught">Vught</option>
+                <select class="form-select" id="magazijnlocatie" name="locatie">
+                    <option value="Berlicum" {{ $product->magazijn->locatie == 'Berlicum' ? 'selected' : '' }}>
+                        Berlicum</option>
+                    <option value="Den Bosch" {{ $product->magazijn->locatie == 'Den Bosch' ? 'selected' : '' }}>Den
+                        Bosch</option>
+                    <option value="Gemonde" {{ $product->magazijn->locatie == 'Gemonde' ? 'selected' : '' }}>Gemonde
+                    </option>
+                    <option value="Heeswijk Dinther"
+                        {{ $product->magazijn->locatie == 'Heeswijk Dinther' ? 'selected' : '' }}>Heeswijk Dinther
+                    </option>
+                    <option value="Middelrode" {{ $product->magazijn->locatie == 'Middelrode' ? 'selected' : '' }}>
+                        Middelrode</option>
+                    <option value="Rosmalen" {{ $product->magazijn->locatie == 'Rosmalen' ? 'selected' : '' }}>
+                        Rosmalen</option>
+                    <option value="Schijndel" {{ $product->magazijn->locatie == 'Schijndel' ? 'selected' : '' }}>
+                        Schijndel</option>
+                    <option value="Sint-MichelsGestel"
+                        {{ $product->magazijn->locatie == 'Sint-MichelsGestel' ? 'selected' : '' }}>
+                        Sint-MichelsGestel</option>
+                    <option value="Vught" {{ $product->magazijn->locatie == 'Vught' ? 'selected' : '' }}>Vught
+                    </option>
                 </select>
             </div>
         </div>
@@ -69,14 +84,13 @@
             </div>
         </div>
         <div class="row mb-3">
-            <label for="aantal" class="col-sm-2 col-form-label">Aantal uitgeleverde producten</label>
+            <label for="aantal_uitgeleverd" class="col-sm-2 col-form-label">Aantal uitgeleverde producten</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" name="aantal" id="aantal"
-                    max="{{ $product->magazijn->aantal }}">
+                <input type="number" class="form-control" name="aantal_uitgeleverd" id="aantal_uitgeleverd">
             </div>
         </div>
         <div class="row mb-3">
-            <label for="uitleveringsdatum" class="col-sm-2 col-form-label">uitleveringsdatum</label>
+            <label for="uitleveringsdatum" class="col-sm-2 col-form-label">Uitleveringsdatum</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" name="uitleveringsdatum" id="uitleveringsdatum">
             </div>
@@ -84,16 +98,16 @@
         <div class="row mb-3">
             <label for="voorraad" class="col-sm-2 col-form-label">Aantal op voorraad</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" name="voorraad" id="voorraad"
+                <input type="number" class="form-control" name="aantal" id="voorraad"
                     value="{{ $product->magazijn->aantal }}">
             </div>
         </div>
-
 
         <button type="submit" class="btn btn-primary">Wijzig Product Details</button>
         <a href="/voorraad/{{ $product->id }}/show" class="btn btn-primary">Terug</a>
         <a href="/" class="btn btn-primary">Home</a>
     </form>
+
 </div>
 
 @if (session('success'))
