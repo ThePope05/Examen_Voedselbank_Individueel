@@ -11,3 +11,4 @@ Route::get('/gezinsallergieen', [AllergieController::class, 'index'])->name('all
 Route::get('/gezinsallergieen/{gezin}/details', [AllergieController::class, 'show'])->name('allergies.show');
 Route::get('/gezinsallergieen/{gezin}/persoon/{persoon}/edit', [AllergieController::class, 'edit'])->name('allergies.edit');
 Route::post('/gezinsallergieen/{gezin}/persoon/{persoon}', [AllergieController::class, 'update'])->name('allergies.update');
+Route::get('/allergies/filter', [AllergieController::class, 'filter'])->name('allergies.filter');

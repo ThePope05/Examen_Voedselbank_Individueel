@@ -41,7 +41,7 @@
                 document.getElementById('anafylactischWaarschuwing').style.display = 'block'; // Toon de waarschuwing
                 setTimeout(function() {
                     document.getElementById('anafylactischWaarschuwing').style.display = 'none'; // Verberg de waarschuwing na 3 seconden
-                }, 3000);
+                }, 5000);
             }
         });
     </script>

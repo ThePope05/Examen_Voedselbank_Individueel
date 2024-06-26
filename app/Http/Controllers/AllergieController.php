@@ -16,9 +16,33 @@ class AllergieController extends Controller
      */
     public function index()
     {
-        $gezinnen = Gezin::with(['personen.allergieen'])->get();
-        return view('allergies.index', compact('gezinnen'));
+        $allergieen = Allergie::all(); // Haal alle allergieën op uit de database
+        $gezinnen = Gezin::with(['personen.allergieen'])->get(); // Haal alle gezinnen op uit de database
+        return view('allergies.index', compact('allergieen', 'gezinnen'));
     }
+
+    public function filter(Request $request)
+    {
+        $allergieId = $request->input('allergie_id');
+
+        if ($allergieId) {
+            $gezinnen = Gezin::whereHas('personen.allergieen', function ($query) use ($allergieId) {
+                $query->where('allergie_id', $allergieId);
+            })->get();
+        } else {
+            // Als er geen allergie is geselecteerd, toon dan alle gezinnen
+            $gezinnen = Gezin::with('personen.allergieen')->get();
+        }
+
+        $allergieen = Allergie::all(); // Haal alle allergieën op uit de database
+
+        if ($gezinnen->isEmpty() && $allergieId) {
+            return redirect()->route('allergies.index')->with('error', 'Er zijn geen gezinnen bekend die de geselecteerde allergie hebben.');
+        }
+
+        return view('allergies.index', compact('allergieen', 'gezinnen'));
+    }
+
 
     /**
      * Toon de details van een gezin inclusief allergieën.
@@ -81,4 +105,3 @@ class AllergieController extends Controller
             ->with('success', 'De allergie is succesvol gewijzigd.');
     }
 }
-
