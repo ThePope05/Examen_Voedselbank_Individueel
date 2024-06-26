@@ -47,4 +47,17 @@ class VoorraadController extends Controller
         $products = ProductPerMagazijn::all()->where('product.categorie_id', $filterCategorie);
         return view('voorraad.index', compact('products'));
     }
+
+    public function show($id)
+    {
+        /**
+         * Haal een product op uit de database
+         * waarvan de id gelijk is aan de product_id
+         * en geef deze door aan de view
+         * @var ProductPerMagazijn $product
+         * @var int $id
+         */
+        $product = ProductPerMagazijn::findOrFail($id);
+        return view('voorraad.show', compact('product'));
+    }
 }
