@@ -129,7 +129,7 @@ class PersoonSeeder extends Seeder
                     'voornaam' => 'Judith',
                     'tussenvoegsel' => null,
                     'achternaam' => 'Bergkamp',
-                    'geboortedatum' => '2022-022-05',
+                    'geboortedatum' => '2022-02-05',
                     'type_persoon' => 'Klant',
                     'is_vertegenwoordiger' => 0,
                     'datum_aangemaakt' => now(),
