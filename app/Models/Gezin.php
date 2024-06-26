@@ -11,7 +11,7 @@ class Gezin extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'code', 'omschrijving', 'aantal_volwassenen', 'aantal_kinderen', 'aantal_babys',
+        'naam', 'code', 'omschrijving', 'aantal_volwassenen', 'aantal_kinderen', 'aantal_babys',
         'totaal_aantal_personen', 'is_actief', 'opmerking', 'datum_aangemaakt', 'datum_gewijzigd'
     ];
 
