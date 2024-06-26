@@ -10,8 +10,7 @@ class CreatePersonenTable extends Migration
     {
         Schema::create('personen', function (Blueprint $table) {
             $table->id();
-            $table->integer('gezin_id');
-            $table->foreign('gezin_id')->references('id')->on('gezinnen');
+            $table->foreignId('gezin_id')->constrained('gezinnen');
             $table->string('voornaam', 50);
             $table->string('tussenvoegsel', 10)->nullable();
             $table->string('achternaam', 50);
@@ -20,9 +19,8 @@ class CreatePersonenTable extends Migration
             $table->boolean('is_vertegenwoordiger');
             $table->boolean('is_actief');
             $table->string('opmerking', 255)->nullable();
-            $table->datetime('datum_aangemaakt');
-            $table->datetime('datum_gewijzigd');
-            $table->timestamps();
+            $table->dateTime('datum_aangemaakt', 6);
+            $table->dateTime('datum_gewijzigd', 6);
         });
     }
 
@@ -31,3 +29,4 @@ class CreatePersonenTable extends Migration
         Schema::dropIfExists('personen');
     }
 }
+

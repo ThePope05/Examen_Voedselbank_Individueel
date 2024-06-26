@@ -10,15 +10,20 @@ class CreateAllergiePerPersoonTable extends Migration
     {
         Schema::create('allergie_per_persoon', function (Blueprint $table) {
             $table->id();
-            $table->integer('persoon_id');
-            $table->foreign('persoon_id')->references('id')->on('personen');
-            $table->integer('allergie_id');
-            $table->foreign('allergie_id')->references('id')->on('allergieen');
+            $table->unsignedBigInteger('persoon_id');
+            $table->unsignedBigInteger('allergie_id');
             $table->boolean('is_actief');
             $table->string('opmerking', 255)->nullable();
-            $table->datetime('datum_aangemaakt');
-            $table->datetime('datum_gewijzigd');
-            $table->timestamps();
+            $table->dateTime('datum_aangemaakt', 6);
+            $table->dateTime('datum_gewijzigd', 6);
+
+            // Foreign keys
+            $table->foreign('persoon_id')->references('id')->on('personen');
+            $table->foreign('allergie_id')->references('id')->on('allergie');
+
+            // Indexen
+            $table->index('persoon_id');
+            $table->index('allergie_id');
         });
     }
 
