@@ -56,7 +56,7 @@
                         <td>{{ $product->product->houdbaarheidsdatum }}</td>
                         <td>{{ $product->locatie }}</td>
                         <td class="text-center">
-                            <a href="/details/ {{ $product->id }}">
+                            <a href="/voorraad/{{ $product->id }}/show">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
                                     <path
