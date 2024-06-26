@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header" style="background-color: #f8f9fa;">
-                    <span style="color: #28a745;">Overzicht Klanten</span> <!-- Titel van de pagina -->
+                    <span style="color: #28a745;">Overzicht Klanten</span>
                     <div class="float-right">
                         <select id="postcode-select">
                             <option value="">Selecteer Postcode</option>
@@ -15,11 +15,11 @@
                             <option value="{{ $contact->postcode }}" @if ($contact->postcode == '5271ZH') selected @endif>{{ $contact->postcode }}</option>
                             @endforeach
                         </select>
-                        <button class="btn btn-secondary" onclick="filterByPostcode()">Toon Klanten</button> <!-- Knop om klanten te filteren -->
+                        <button class="btn btn-secondary" onclick="filterByPostcode()">Toon Klanten</button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="no-contacts-message" class="alert alert-warning" style="display: none;">Er zijn geen klanten bekend die de geselecteerde postcode hebben</div> <!-- Waarschuwingsbericht als er geen klanten zijn met de geselecteerde postcode -->
+                    <div id="no-contacts-message" class="alert alert-warning" style="display: none;">Er zijn geen klanten bekend die de geselecteerde postcode hebben</div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -49,7 +49,7 @@
                                 <td>{{ $contact->woonplaats }}</td>
                                 <td>
                                     <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-info btn-sm">
-                                        <i class="fas fa-file-alt"></i> <!-- FontAwesome notepad icon -->
+                                        <i class="fas fa-info-circle"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -59,7 +59,7 @@
                     </table>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
-                    <a href="{{ url('/') }}" class="btn btn-primary">Home</a>
+                    <a href="{{ route('home') }}" class="btn btn-primary">Home</a>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
         });
 
         if (!hasVisibleRow) {
-            noContactsMessage.style.display = 'block'; // Toon waarschuwingsbericht als geen resultaten worden getoond
+            noContactsMessage.style.display = 'block';
         } else {
             noContactsMessage.style.display = 'none';
         }
