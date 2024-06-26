@@ -16,4 +16,4 @@ Route::get('/voorraad/filter', [VoorraadController::class, 'filterByCategorie'])
 // Product details
 Route::get('/voorraad/{id}/show', [VoorraadController::class, 'show'])->name('voorraad.show');
 Route::get('/voorraad/{id}/edit', [VoorraadController::class, 'edit'])->name('voorraad.edit');
-Route::put('/voorraad/{id}/edit', [VoorraadController::class, 'update'])->name('voorraad.update');
+Route::patch('/voorraad/{id}/edit', [VoorraadController::class, 'update'])->name('voorraad.update');
