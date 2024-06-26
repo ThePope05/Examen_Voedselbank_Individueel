@@ -7,26 +7,31 @@ use App\Models\Contact;
 
 class ContactController extends Controller
 {
+    // Methode om alle contacten op te halen en naar de index view te sturen
     public function index()
     {
         $contacts = Contact::all();
         return view('contacts.index', compact('contacts'));
     }
 
+    // Methode om een specifiek contact op basis van ID op te halen en naar de show view te sturen
     public function show($id)
     {
         $contact = Contact::findOrFail($id);
         return view('contacts.show', compact('contact'));
     }
 
+    // Methode om een specifiek contact op basis van ID op te halen en naar de edit view te sturen
     public function edit($id)
     {
         $contact = Contact::findOrFail($id);
         return view('contacts.edit', compact('contact'));
     }
 
+    // Methode om contactgegevens bij te werken op basis van een HTTP Request
     public function update(Request $request, $id)
     {
+        // Valideer de ingevoerde gegevens met behulp van Laravel validatieregels
         $request->validate([
             'voornaam' => 'required|string|max:255',
             'tussenvoegsel' => 'nullable|string|max:255',
@@ -42,12 +47,12 @@ class ContactController extends Controller
                 'string',
                 'max:10',
                 function ($attribute, $value, $fail) {
-                    // Define valid postcodes for Maaskantje
+                    // Definieer geldige postcodes voor Maaskantje
                     $validPostcodes = [
                         '5271TH', '5271TJ', '5271ZE', '5271ZH'
                     ];
 
-                    // Check if the entered postcode is in Maaskantje
+                    // Controleer of de ingevoerde postcode in Maaskantje voorkomt
                     if (!in_array($value, $validPostcodes)) {
                         $fail('De postcode komt niet uit de regio Maaskantje.');
                     }
@@ -57,20 +62,21 @@ class ContactController extends Controller
             'email' => 'required|email|max:255',
             'mobiel' => 'required|string|max:20',
         ], [
-            'postcode.in' => 'De postcode komt niet uit de regio Maaskantje.',
+            'postcode.in' => 'De postcode komt niet uit de regio Maaskantje.', // Aangepaste foutmelding voor postcode validatie
         ]);
 
         try {
+            // Zoek het contact op basis van ID en update de gegevens met de ontvangen request data
             $contact = Contact::findOrFail($id);
             $contact->update($request->all());
 
-            // Flash the success message to the session
+            // Flash een succesbericht naar de sessie
             session()->flash('success', 'De klantgegevens zijn gewijzigd');
 
-            // Redirect back to the edit page
+            // Redirect terug naar de bewerkingspagina van het contact
             return redirect()->route('contacts.edit', $contact->id);
         } catch (\Exception $e) {
-            // Handle any exceptions or errors
+            // Behandel eventuele uitzonderingen of fouten die kunnen optreden
             return redirect()->back()
                 ->withInput()
                 ->withErrors(['error' => 'De contactgegevens van de geselecteerde klant kunnen niet gewijzigd.']);
