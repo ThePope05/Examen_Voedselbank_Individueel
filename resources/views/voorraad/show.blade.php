@@ -26,11 +26,11 @@
         </tr>
         <tr>
             <th>Ontvangstdatum</th>
-            <td>{{ $product->product->ontvangstdatum }}</td>
+            <td>{{ $product->magazijn->ontvangstdatum }}</td>
         </tr>
         <tr>
             <th>Uitleveringsdatum</th>
-            <td>{{ $product->product->uitleveringsdatum }}</td>
+            <td>{{ $product->magazijn->uitleveringsdatum }}</td>
         </tr>
         <tr>
             <th>Aantal op voorraad</th>
