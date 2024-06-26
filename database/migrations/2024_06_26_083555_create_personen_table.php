@@ -17,7 +17,7 @@ class CreatePersonenTable extends Migration
             $table->date('geboorte_datum');
             $table->string('type_persoon', 30);
             $table->boolean('is_vertegenwoordiger');
-            $table->boolean('is_actief');
+            $table->boolean('is_actief')->default(true);
             $table->string('opmerking', 255)->nullable();
             $table->dateTime('datum_aangemaakt', 6);
             $table->dateTime('datum_gewijzigd', 6);

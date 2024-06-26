@@ -10,13 +10,14 @@ class CreateGezinnenTable extends Migration
     {
         Schema::create('gezinnen', function (Blueprint $table) {
             $table->id();
+            $table->string('naam', 50);
             $table->char('code', 5)->unique();
             $table->string('omschrijving', 30);
             $table->integer('aantal_volwassenen');
             $table->integer('aantal_kinderen');
             $table->integer('aantal_babys');
             $table->integer('totaal_aantal_personen');
-            $table->boolean('is_actief');
+            $table->boolean('is_actief')->default(true);
             $table->string('opmerking', 255)->nullable();
             $table->dateTime('datum_aangemaakt', 6);
             $table->dateTime('datum_gewijzigd', 6);

@@ -12,7 +12,7 @@ class CreateAllergiePerPersoonTable extends Migration
             $table->id();
             $table->unsignedBigInteger('persoon_id');
             $table->unsignedBigInteger('allergie_id');
-            $table->boolean('is_actief');
+            $table->boolean('is_actief')->default(true);
             $table->string('opmerking', 255)->nullable();
             $table->dateTime('datum_aangemaakt', 6);
             $table->dateTime('datum_gewijzigd', 6);
