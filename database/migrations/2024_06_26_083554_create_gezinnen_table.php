@@ -19,8 +19,8 @@ class CreateGezinnenTable extends Migration
             $table->integer('totaal_aantal_personen');
             $table->boolean('is_actief')->default(true);
             $table->string('opmerking', 255)->nullable();
-            $table->dateTime('datum_aangemaakt', 6);
-            $table->dateTime('datum_gewijzigd', 6);
+            $table->dateTime('datum_aangemaakt', 6)->default(now());
+            $table->dateTime('datum_gewijzigd', 6)->default(now());
         });
     }
 
