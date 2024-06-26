@@ -6,6 +6,20 @@
     <title>Overzicht Gezinsallergieën</title>
 </head>
 <body>
+    @if (session('success'))
+    <div class="success-message" id="successMessage">
+        {{ session('success') }}
+    </div>
+    @endif
+    <script>
+        // JavaScript to hide the success message after 3 seconds
+        setTimeout(function() {
+            var successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 3000); // 3000 milliseconds = 3 seconds
+    </script>
     <h1>Overzicht Gezinsallergieën</h1>
     <table border="1">
         <thead>
@@ -33,7 +47,7 @@
                         @endphp
                         {{ $vertegenwoordiger ? $vertegenwoordiger->voornaam . ' ' . $vertegenwoordiger->tussenvoegsel . ' ' . $vertegenwoordiger->achternaam : 'N/A' }}
                     </td>
-                    <td><a href="#">Allergie Details</a></td>
+                    <td><a href="{{ route('allergies.show', $gezin->id) }}">Allergie Details</a></td>
                 </tr>
             @endforeach
         </tbody>
