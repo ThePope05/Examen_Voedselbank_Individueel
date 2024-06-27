@@ -25,25 +25,6 @@
         <button type="submit" id="wijzigAllergieButton">Wijzig Allergie</button>
     </form>
 
-    @if ($hoogRisico)
-        <div id="anafylactischWaarschuwing" style="display: none; color: red;">
-            Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactische shock.
-        </div>
-    @endif
-
     <a href="{{ route('allergies.show', $gezinId) }}">Terug naar allergieën overzicht</a>
-
-    <script>
-        // JavaScript om de waarschuwing weer te geven als het anafylactisch risico hoog is
-        document.getElementById('wijzigAllergieButton').addEventListener('click', function(event) {
-            if ({{ $hoogRisico ? 'true' : 'false' }}) {
-                event.preventDefault(); // Voorkom dat het formulier wordt ingediend
-                document.getElementById('anafylactischWaarschuwing').style.display = 'block'; // Toon de waarschuwing
-                setTimeout(function() {
-                    document.getElementById('anafylactischWaarschuwing').style.display = 'none'; // Verberg de waarschuwing na 3 seconden
-                }, 5000);
-            }
-        });
-    </script>
 </body>
 </html>

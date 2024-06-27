@@ -73,8 +73,15 @@ class AllergieController extends Controller
             return $allergie->anafylactisch_risico === 'hoog';
         });
 
+        if ($hoogRisico) {
+            return redirect()->route('allergies.show', $gezinId)->withErrors([
+                'warning' => 'Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactische shock.'
+            ]);
+        }
+
         return view('allergies.edit', compact('persoon', 'allergieen', 'gezinId', 'hoogRisico'));
     }
+
 
     /**
      * Werk de allergie van een persoon bij.
@@ -102,6 +109,6 @@ class AllergieController extends Controller
         $persoon->allergieen()->sync([$request->allergie_id]);
 
         return redirect()->route('allergies.show', $gezinId)
-            ->with('success', 'De allergie is succesvol gewijzigd.');
+            ->with('success', 'De wijziging is doorgevoerd.');
     }
 }

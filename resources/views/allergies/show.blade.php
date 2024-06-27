@@ -13,15 +13,27 @@
         {{ session('success') }}
     </div>
     @endif
+    
+    @if ($errors->has('warning'))
+    <div class="warning-message" id="warningMessage">
+        {{ $errors->first('warning') }}
+    </div>
+    @endif
+
     <script>
-        // JavaScript to hide the success message after 3 seconds
+        // JavaScript to hide the success and warning messages after 3 seconds
         setTimeout(function() {
             var successMessage = document.getElementById('successMessage');
             if (successMessage) {
                 successMessage.style.display = 'none';
             }
+            var warningMessage = document.getElementById('warningMessage');
+            if (warningMessage) {
+                warningMessage.style.display = 'none';
+            }
         }, 3000); // 3000 milliseconds = 3 seconds
     </script>
+
     <h1>Allergieën van {{ $gezin->naam }}</h1>
     <table border="1">
         <thead>
