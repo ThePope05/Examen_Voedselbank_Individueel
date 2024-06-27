@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Session;
 
 class ContactController extends Controller
 {
@@ -28,11 +29,10 @@ class ContactController extends Controller
         return view('contacts.edit', compact('contact'));
     }
 
-    // Methode om contactgegevens bij te werken op basis van een HTTP Request
     public function update(Request $request, $id)
     {
-        // Valideer de ingevoerde gegevens met behulp van Laravel validatieregels
-        $request->validate([
+        // Validate the input
+        $validatedData = $request->validate([
             'voornaam' => 'required|string|max:255',
             'tussenvoegsel' => 'nullable|string|max:255',
             'achternaam' => 'required|string|max:255',
@@ -47,12 +47,12 @@ class ContactController extends Controller
                 'string',
                 'max:10',
                 function ($attribute, $value, $fail) {
-                    // Definieer geldige postcodes voor Maaskantje
+                    // Valid postcodes for Maaskantje
                     $validPostcodes = [
                         '5271TH', '5271TJ', '5271ZE', '5271ZH'
                     ];
 
-                    // Controleer of de ingevoerde postcode in Maaskantje voorkomt
+                    // Check if the entered postcode is valid for Maaskantje
                     if (!in_array($value, $validPostcodes)) {
                         $fail('De postcode komt niet uit de regio Maaskantje.');
                     }
@@ -61,25 +61,36 @@ class ContactController extends Controller
             'woonplaats' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'mobiel' => 'required|string|max:20',
-        ], [
-            'postcode.in' => 'De postcode komt niet uit de regio Maaskantje.', // Aangepaste foutmelding voor postcode validatie
         ]);
 
         try {
-            // Zoek het contact op basis van ID en update de gegevens met de ontvangen request data
+            // Find the contact by ID and update its details
             $contact = Contact::findOrFail($id);
-            $contact->update($request->all());
+            $contact->voornaam = $request->input('voornaam');
+            $contact->tussenvoegsel = $request->input('tussenvoegsel');
+            $contact->achternaam = $request->input('achternaam');
+            $contact->geboortedatum = $request->input('geboortedatum');
+            $contact->typepersoon = $request->input('typepersoon');
+            $contact->vertegenwoordiger = $request->input('vertegenwoordiger');
+            $contact->straat = $request->input('straat');
+            $contact->huisnummer = $request->input('huisnummer');
+            $contact->toevoeging = $request->input('toevoeging');
+            $contact->postcode = $request->input('postcode');
+            $contact->woonplaats = $request->input('woonplaats');
+            $contact->email = $request->input('email');
+            $contact->mobiel = $request->input('mobiel');
+            $contact->save();
 
-            // Flash een succesbericht naar de sessie
-            session()->flash('success', 'De klantgegevens zijn gewijzigd');
+            // Flash success message to session
+            Session::flash('success', 'De klantgegevens zijn succesvol gewijzigd.');
 
-            // Redirect terug naar de bewerkingspagina van het contact
+            // Redirect to edit page after successful update
             return redirect()->route('contacts.edit', $contact->id);
         } catch (\Exception $e) {
-            // Behandel eventuele uitzonderingen of fouten die kunnen optreden
+            // Handle exceptions or errors that may occur
             return redirect()->back()
                 ->withInput()
-                ->withErrors(['error' => 'De contactgegevens van de geselecteerde klant kunnen niet gewijzigd.']);
+                ->withErrors(['error' => 'Er is een fout opgetreden bij het wijzigen van de klantgegevens.']);
         }
     }
 }

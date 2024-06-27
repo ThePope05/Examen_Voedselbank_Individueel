@@ -10,8 +10,10 @@ class Contact extends Model
     use HasFactory;
 
     protected $fillable = [
+        'voornaam', 'tussenvoegsel', 'achternaam', 'geboortedatum', 'typepersoon', 'vertegenwoordiger',
         'straat', 'huisnummer', 'toevoeging', 'postcode', 'woonplaats', 'email', 'mobiel'
     ];
+
 
     public function gezins()
     {
