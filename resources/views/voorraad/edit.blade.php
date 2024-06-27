@@ -32,21 +32,21 @@
             <label for="productnaam" class="col-sm-2 col-form-label">Productnaam</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="naam" id="productnaam"
-                    value="{{ $product->product->naam }}">
+                    value="{{ $product->product->naam }}" disabled>
             </div>
         </div>
         <div class="row mb-3">
             <label for="houdbaarheidsdatum" class="col-sm-2 col-form-label">Houdbaarheidsdatum</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" name="houdbaarheidsdatum" id="houdbaarheidsdatum"
-                    value="{{ $product->product->houdbaarheidsdatum }}">
+                    value="{{ $product->product->houdbaarheidsdatum }}" disabled>
             </div>
         </div>
         <div class="row mb-3">
             <label for="barcode" class="col-sm-2 col-form-label">Barcode</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" name="barcode" id="barcode" min="1000000000000"
-                    max="9999999999999" value="{{ $product->product->barcode }}">
+                    max="9999999999999" value="{{ $product->product->barcode }}" disabled>
             </div>
         </div>
         <div class="row mb-3">
@@ -80,7 +80,7 @@
             <label for="ontvangstdatum" class="col-sm-2 col-form-label">Ontvangstdatum</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" name="ontvangstdatum" id="ontvangstdatum"
-                    value="{{ $product->magazijn->ontvangstdatum }}">
+                    value="{{ $product->magazijn->ontvangstdatum }}" disabled>
             </div>
         </div>
         <div class="row mb-3">
@@ -92,7 +92,8 @@
         <div class="row mb-3">
             <label for="uitleveringsdatum" class="col-sm-2 col-form-label">Uitleveringsdatum</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" name="uitleveringsdatum" id="uitleveringsdatum">
+                <input type="date" class="form-control" name="uitleveringsdatum" id="uitleveringsdatum"
+                    value="{{ $product->magazijn->uitleveringsdatum }}">
             </div>
         </div>
         <div class="row mb-3">
