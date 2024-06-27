@@ -13,7 +13,7 @@
 <body class="flex w-screen h-screen justify-center align-middle items-center">
     <div class="w-3/5 shadow-xl p-6">
         <div class="flex justify-between">
-            <h1 class="text-green-600 underline text-2xl">Overzicht Leveranciers</h1>
+            <h1 class="text-green-600 underline text-2xl">Overzicht Producten</h1>
         </div>
 
         <table>
