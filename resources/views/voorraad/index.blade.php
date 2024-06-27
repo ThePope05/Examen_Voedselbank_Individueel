@@ -15,7 +15,7 @@
                 <form action="{{ route('voorraad.filterByCategorie') }}" method="GET">
                     <select class="form-select" id="filter_categorie" name="filter_categorie">
                         <option selected disabled>Selecteer Categorie</option>
-                        <option value="1" f>AGF</option>
+                        <option value="1">AGF</option>
                         <option value="2">KV</option>
                         <option value="3">ZPE</option>
                         <option value="4">BB</option>
@@ -23,7 +23,7 @@
                         <option value="6">PRW</option>
                         <option value="7">SSKO</option>
                         <option value="8">SKCC</option>
-                        <option value="9">BHV</option>
+                        <option value="9">BVH</option>
                     </select>
             </div>
             <div class="col-1">
